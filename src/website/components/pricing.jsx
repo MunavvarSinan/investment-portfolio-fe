@@ -40,7 +40,7 @@ export default function Pricing() {
                 onClick={() => history.push('/coming-soon')}
                 className="main-btn btn-hover border-btn"
               >
-                Prchase Now
+                Purchase Now
               </a>
             </div>
           </div>
@@ -74,7 +74,7 @@ export default function Pricing() {
                 onClick={() => history.push('/coming-soon')}
                 className="main-btn btn-hover border-btn"
               >
-                Prchase Now
+                Purchase Now
               </a>
             </div>
           </div>
@@ -104,7 +104,7 @@ export default function Pricing() {
                 onClick={() => history.push('/coming-soon')}
                 className="main-btn btn-hover border-btn"
               >
-                Prchase Now
+                Purchase Now
               </a>
             </div>
           </div>
