@@ -40,7 +40,7 @@ export default function About() {
                 data-wow-delay="0.4s"
               >
                 Invest in India's growing IT, Pharma, Auto, Metal, Banking, Real
-                Estate, Media, Energy and many more sections with us.
+                Estate, Media, Energy and many more sectors with us.
               </p>
 
               <div className="about-counter pt-60">

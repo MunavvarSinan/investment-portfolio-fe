@@ -8,9 +8,9 @@ export default function Banner() {
           <div className="col-xxl-5 col-xl-6 col-lg-6 col-md-10">
             <div className="hero-content wow fadeInUp">
               <h1>
-                Your Financial Goal Starts Here At <span>SMART FUNDS </span>
+                Your Financial Goal Starts Here At <span>SMART FUNDS. </span>
               </h1>
-              <p>UNLOCK YOUR FREEDOM</p>
+              <p>UNLOCK YOUR FREEDOM.</p>
 
               <a href="#about" className="main-btn btn-hover">
                 Read more

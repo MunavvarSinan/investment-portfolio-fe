@@ -29,7 +29,7 @@ export default function Footer() {
                 </a>
               </div>
               <p className="desc">
-                You can connect to us through the social media platforms
+                You can connect  us through the social media platforms.
               </p>
               <ul className="social-links">
                 <li>

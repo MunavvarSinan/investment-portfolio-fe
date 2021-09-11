@@ -56,7 +56,7 @@ export default function Contact() {
               </h1>
               <p className="wow fadeInUp" data-wow-delay=".4s">
                 You can send a mail to us regarding any quries about the
-                investment or for any support from our team
+                investment plans or for any support from our team.
               </p>
             </div>
           </div>

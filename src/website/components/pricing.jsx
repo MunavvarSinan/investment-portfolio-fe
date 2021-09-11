@@ -21,7 +21,7 @@ export default function Pricing() {
               </div>
               <div className="pricing-header">
                 <p className="price-value">
-                  ₹5000-₹9999<span> /year</span>
+                  ₹5000-₹9999
                 </p>
               </div>
               <div className="title">
@@ -31,7 +31,7 @@ export default function Pricing() {
                 <li>5%-8% ROI Monthly</li>
                 <li>70%-130% CAGR</li>
                 <li>7:3 Profit Sharing</li>
-                <li>Referal Opportunities</li>
+                <li>Referral Opportunities</li>
                 <li>Life Time Investment Plan</li>
                 <li>Easy Withdrawal After One Month</li>
               </ul>
@@ -55,7 +55,7 @@ export default function Pricing() {
               </div>
               <div className="pricing-header">
                 <p className="price-value">
-                  ₹10000-₹24999<span> /year</span>
+                  ₹10000-₹24999
                 </p>
               </div>
               <div className="title">
@@ -65,7 +65,7 @@ export default function Pricing() {
                 <li>5%-8% ROI Monthly</li>
                 <li>70%-130% CAGR</li>
                 <li>8:2 Profit Sharing</li>
-                <li>Referal Opportunities + Credit Scores</li>
+                <li>Referral Opportunities + Credit Scores</li>
                 <li>Life Time Investment Plan</li>
                 <li>Easy Withdrawal After One Month</li>
               </ul>
@@ -85,7 +85,7 @@ export default function Pricing() {
               </div>
               <div className="pricing-header">
                 <p className="price-value">
-                  ₹25000+<span> /year</span>
+                  ₹25000+
                 </p>
               </div>
               <div className="title">
@@ -95,7 +95,7 @@ export default function Pricing() {
               <li>5%-8% ROI Monthly</li>
                 <li>70%-130% CAGR</li>
                 <li>9:1 Profit Sharing</li>
-                <li>Referal Opportunities + Credit Scores + Bonus Issue</li>
+                <li>Referral Opportunities + Credit Scores + Bonus Issue</li>
                 <li>Life Time Investment Plan</li>
                 <li>Easy Withdrawal After One Month</li>
               </ul>

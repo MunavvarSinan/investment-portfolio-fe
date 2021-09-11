@@ -19,14 +19,14 @@ export default function Features() {
               <div className="feature-content-wrapper">
                 <div className="section-title">
                   <h2 className="mb-20">
-                    The Most Skilled & Experienced Investors In India
+                    The Most Skilled & Experienced Investors In India.
                   </h2>
                   <p className="mb-30">
                     You can Invest your funds in the most trusted company run by
                     professional investors, who can manage your funds by
                     mastering the market conditions and invest your funds in a
                     diversified portfolio including growing companies that can
-                    generate highly profitable returns on your investment
+                    generate highly profitable returns on your investment.
                   </p>
                   <a
                     href="#"
@@ -51,16 +51,16 @@ export default function Features() {
                   <h2 className="mb-30">
                     Risk Free Investment
                     <br className="d-none d-sm-block" />
-                    Plans With More benefits
+                    Plans With More benefits.
                   </h2>
                   <p className="mb-30">
-                    We are introducing you the most unique thing in the system.
-                    It is we are providing risk less investment plans that
+                    We are introducing you to the most unique thing in this system.
+                    It is we are providing riskless investment plans that
                     investors are not going to face any sort of loss in their
                     investment and we can assure about their funds are in safe
                     hands. Investors can enjoy bonuses, credit scores, referral
                     opportunities and many more benefits as long as they are a
-                    part of SMART FUNDS
+                    part of SMART FUNDS.
                   </p>
                   <a
                     href="#"
