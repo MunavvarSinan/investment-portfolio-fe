@@ -33,12 +33,12 @@ export default function Footer() {
               </p>
               <ul className="social-links">
                 <li>
-                  <a href="#0">
+                  <a href="https://m.facebook.com/profile.php?ref=wizard">
                     <i className="lni lni-facebook"></i>
                   </a>
                 </li>
                 <li>
-                  <a href="#0">
+                  <a href="https://www.linkedin.com/in/smart-funds-1a80a5220/">
                     <i className="lni lni-linkedin"></i>
                   </a>
                 </li>
