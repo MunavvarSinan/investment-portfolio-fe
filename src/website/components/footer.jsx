@@ -1,6 +1,6 @@
 import React from 'react';
-import emailjs from 'emailjs-com'
-
+import emailjs from 'emailjs-com';
+import logo from '../../assets/images/logo.png'
 export default function Footer() {
   function sendEmail(e) {
     e.preventDefault();
@@ -25,11 +25,11 @@ export default function Footer() {
             <div className="footer-widget">
               <div className="logo">
                 <a href="#home">
-                  <img src="assets/images/logo.png" alt="logo" />
+                  <img src={logo} alt="logo" width="100%"/>
                 </a>
               </div>
               <p className="desc">
-                You can connect  us through the social media platforms.
+                You can connect us through the social media platforms.
               </p>
               <ul className="social-links">
                 <li>
@@ -54,7 +54,7 @@ export default function Footer() {
                 </li>
                 <li>
                   <a href="mailto: info@smartfunds.co.in">
-                  <i className="material-icons">mail_outline</i>
+                    <i className="material-icons">mail_outline</i>
                   </a>
                 </li>
               </ul>
@@ -82,17 +82,27 @@ export default function Footer() {
               </ul>
             </div>
           </div>
-       
+
           <div className="col-xl-4 col-lg-4 col-md-6">
             <div className="footer-widget">
               <h3>Subscribe Newsletter</h3>
-              <form action="#" onSubmit={(sendEmail)}>
+              <form action="#" onSubmit={sendEmail}>
                 <input type="email" placeholder="Email" name="email" />
                 <button className="main-btn btn-hover">Subscribe</button>
               </form>
             </div>
           </div>
         </div>
+      </div>
+      <div class="footer-copyright text-center">
+        <p class="text">
+        <a href="https://smartfunds.co.in" rel="nofollow">
+            SMART FUNDS
+          </a>
+          © 2021 Crafted by
+       
+          All Rights Reserved.
+        </p>
       </div>
     </footer>
   );

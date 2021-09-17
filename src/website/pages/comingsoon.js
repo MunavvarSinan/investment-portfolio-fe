@@ -1,6 +1,6 @@
 import React from 'react';
 import './comingsoon.css';
-import history from '../../history'
+import history from '../../../history'
 
 export const ComingSoon = () => {
   setTimeout(() => {

@@ -621,7 +621,7 @@ p {
   height: 820px;
   display: flex;
   align-items: center;
-  background-image: url('../assets/hero-bg.svg');
+  /* background-image: url('../assets/hero-bg.svg'); */
   background-size: cover;
   background: linear-gradient(
     180deg,
@@ -1255,4 +1255,18 @@ p {
 }
 .mail-icon :hover {
   color: #fff;
+}
+.footer .copyright {
+  padding: 18px 0;
+  text-align: center;
+  color: rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.footer .copyright a {
+  color: inherit;
+}
+
+.footer .copyright a:hover {
+  color: #606EFF;
 }

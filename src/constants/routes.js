@@ -8,7 +8,7 @@ export default function Routes() {
   return (
     <Router history={history}>
       <Switch>
-        <Route path="/" exact component={Website} />
+        <Route path="/home" exact component={Website} />
         <Route path="/coming-soon" component={ComingSoon} />
       </Switch>
     </Router>

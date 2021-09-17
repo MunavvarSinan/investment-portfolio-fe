@@ -72,8 +72,7 @@ export default function Header() {
                 </div>
                 <div className="header-btn">
                   <a
-                    href="#"
-                    onClick={() => history.push('/coming-soon')}
+                    href="/login"
                     className="main-btn btn-hover"
                   >
                     Login
