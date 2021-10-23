@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import { Avatar, Chip, ListItemIcon, ListItemText, Typography, useMediaQuery } from '@material-ui/core';
-import ListItemButton from '@material-ui/core/ListItemButton';
+import ListItemButton from '@mui/material/ListItemButton';
 
 // project imports
 import { MENU_OPEN, SET_MENU } from '../../../../../store/actions';

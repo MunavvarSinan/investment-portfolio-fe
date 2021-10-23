@@ -4,10 +4,9 @@ import {
   Banner,
   About,
   Features,
-  Pricing,
   Contact,
   Footer,
-  Preloader,
+  Disclimer,
 } from '../components';
 
 export const Home = () => {
@@ -18,7 +17,8 @@ export const Home = () => {
       <Banner />
       <About />
       <Features />
-      <Pricing />
+      {/* <Pricing /> */}
+      <Disclimer />
       <Contact />
       <Footer />
     </>

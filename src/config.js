@@ -5,7 +5,8 @@ const config = {
     defaultPath: '/home',
     fontFamily: `'Poppins', sans-serif`,
     borderRadius: 12,
-    API_SERVER: 'http://localhost:5000/api/'
+    API_SERVER: 'http://localhost:5000/api/',
+    GOOGLE_CLIENT_ID:'862084522201-eahvv68f37dlcn1bbiq9280odimqqk4f.apps.googleusercontent.com'
 };
 
 export default config;

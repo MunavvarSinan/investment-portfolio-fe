@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import { Collapse, List, ListItemIcon, ListItemText, Typography } from '@material-ui/core';
-import ListItemButton from '@material-ui/core/ListItemButton';
+import ListItemButton from '@mui/material/ListItemButton';
 
 // project imports
 import NavItem from './../NavItem';

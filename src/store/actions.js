@@ -1,8 +1,14 @@
 // action - account reducer
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
-export const ACCOUNT_INITIALIZE = 'ACCOUNT_INITIALIZE';
-
+export const USER_LOGIN = 'USER_LOGIN';
+export const USER_LOGOUT = 'USER_LOGOUT';
+export const ADMIN_LOGIN = 'ADMIN_LOGIN'
+export const ADMIN_LOGOUT = 'ADMIN_LOGOUT'
+export const USER_ACCOUNT_INITIALIZE = 'USER_ACCOUNT_INITIALIZE';
+export const ADMIN_ACCOUNT_INITIALIZE = 'ADMIN_ACCOUNT_INITIALIZE';
+export const LOGIN_WITH_EMAIL_LOADING = 'LOGIN_WITH_EMAIL_LOADING';
+export const LOGIN_WITH_EMAIL_SUCCESS = 'LOGIN_WITH_EMAIL_SUCCESS';
+export const LOGIN_WITH_EMAIL_FAIL = 'LOGIN_WITH_EMAIL_FAIL';
+export const ADMIN_GET_ALL_USERS = 'ADMIN_GET_ALL_USERS';
 // action - customization reducer
 export const SET_MENU = '@customization/SET_MENU';
 export const MENU_OPEN = '@customization/MENU_OPEN';

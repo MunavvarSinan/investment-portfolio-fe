@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { ThemeProvider } from '@material-ui/core/styles';
-import { CssBaseline, StyledEngineProvider } from '@material-ui/core';
-
+import { CssBaseline } from '@material-ui/core';
+import StyledEngineProvider from '@mui/material/StyledEngineProvider'
 // routing
 import Routes from './routes';
 
@@ -12,7 +12,6 @@ import theme from './themes';
 
 // project imports
 import NavigationScroll from './layout/NavigationScroll';
-import { Website } from './website';
 
 //-----------------------|| APP ||-----------------------//
 
@@ -24,7 +23,6 @@ const App = () => {
             <ThemeProvider theme={theme(customization)}>
                 <CssBaseline />
                 <NavigationScroll>
-                    {/* <Website /> */}
                     <Routes />
                 </NavigationScroll>
             </ThemeProvider>

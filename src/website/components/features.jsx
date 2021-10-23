@@ -49,18 +49,18 @@ export default function Features() {
               <div className="feature-content-wrapper">
                 <div className="section-title wow fadeInLeftBig">
                   <h2 className="mb-30">
-                    Risk Free Investment
+                    Risk Free Investment Plans With
                     <br className="d-none d-sm-block" />
-                    Plans With More benefits.
+                    More benefits.
                   </h2>
                   <p className="mb-30">
-                    We are introducing you to the most unique thing in this system.
-                    It is we are providing riskless investment plans that
-                    investors are not going to face any sort of loss in their
-                    investment and we can assure about their funds are in safe
-                    hands. Investors can enjoy bonuses, credit scores, referral
-                    opportunities and many more benefits as long as they are a
-                    part of SMART FUNDS.
+                    We are introducing you to the most unique thing in this
+                    system. If you are a long term investor we are providing
+                    riskless investment plans that investors are not going to
+                    face any sort of loss in their investment and we can assure
+                    about their funds are in safe hands. Investors can enjoy
+                    bonuses, credit scores, referral opportunities and many more
+                    benefits as long as they are a part of SMART FUNDS.
                   </p>
                   <a
                     href="#"

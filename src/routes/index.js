@@ -1,33 +1,35 @@
 import React from 'react';
 import { Redirect, Switch } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 // routes
-import MainRoutes from './MainRoutes';
-import LoginRoutes from './LoginRoutes';
-import AuthenticationRoutes from './AuthenticationRoutes';
-import WebsiteRoute from './WebsiteRoute'
-// project imports
+import UserRoutes from './UserRoutes';
+import UserLoginRoutes from './userLoginRoutes';
+import WebsiteRoutes from './WebsiteRoutes';
+import AdminRoutes from './AdminRoutes';
+
+
 import config from './../config';
+import AdminLoginRoute from './adminLoginRoutes';
 
 //-----------------------|| ROUTING RENDER ||-----------------------//
 
 const Routes = () => {
-    return (
-        <Switch>
-            <Redirect exact from="/" to={config.defaultPath} />
-            <React.Fragment>
-                <WebsiteRoute />
-                {/* Routes for authentication pages */}
-                <AuthenticationRoutes />
+  const account = useSelector((state) => state.account);
+  const { isLoggedIn, role, admin } = account;
+  let route;
 
-                {/* Route for login */}
-                <LoginRoutes />
-
-                {/* Routes for main layouts */}
-                <MainRoutes />
-            </React.Fragment>
-        </Switch>
-    );
+  return (
+    <Switch>
+      <Redirect exact from="/" to={config.defaultPath} />
+      <React.Fragment>
+        <WebsiteRoutes />
+        <UserLoginRoutes />
+        <AdminLoginRoute />
+        <UserRoutes />
+        <AdminRoutes />
+      </React.Fragment>
+    </Switch>
+  );
 };
 
 export default Routes;

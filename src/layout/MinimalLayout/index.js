@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+
 //-----------------------|| MINIMAL LAYOUT ||-----------------------//
 
 const MinimalLayout = (props) => {

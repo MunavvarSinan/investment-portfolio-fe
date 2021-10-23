@@ -2,8 +2,8 @@ import React from 'react';
 
 // material-ui
 import { makeStyles } from '@material-ui/styles';
-import { Card, CardContent, List, ListItem, ListItemAvatar, ListItemText, Skeleton } from '@material-ui/core';
-
+import { Card, CardContent, List, ListItem, ListItemAvatar, ListItemText } from '@material-ui/core';
+import Skeleton from '@mui/material/Skeleton';
 // style constant
 const useStyles = makeStyles({
     content: {

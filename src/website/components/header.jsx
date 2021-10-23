@@ -72,7 +72,7 @@ export default function Header() {
                 </div>
                 <div className="header-btn">
                   <a
-                    href="/login"
+                    href="/users/login"
                     className="main-btn btn-hover"
                   >
                     Login

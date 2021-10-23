@@ -2,7 +2,7 @@ import React from 'react';
 
 // material-ui
 import { Card, CardContent, Grid } from '@material-ui/core';
-import Skeleton from '@material-ui/core/Skeleton';
+import Skeleton from '@mui/material/Skeleton';
 
 // project imports
 import { gridSpacing } from '../../../store/constant';
