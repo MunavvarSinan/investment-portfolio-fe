@@ -1,25 +1,20 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import configData from '../../../../config';
+import { useDispatch, useSelector } from 'react-redux';
+import config from '../../../../config';
+import { useHistory } from 'react-router';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
   Box,
   Button,
-  Checkbox,
   FormControl,
-  FormControlLabel,
   FormHelperText,
   IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
   Grid,
-  Typography,
 } from '@material-ui/core';
-import Stack from '@mui/material/Stack';
-
 
 // third party
 import * as Yup from 'yup';
@@ -29,7 +24,6 @@ import axios from 'axios';
 // project imports
 import useScriptRef from '../../../../hooks/useScriptRef';
 import AnimateButton from '../../../../ui-component/extended/AnimateButton';
-import { USER_ACCOUNT_INITIALIZE } from './../../../../store/actions';
 
 // assets
 import Visibility from '@material-ui/icons/Visibility';
@@ -44,12 +38,11 @@ const useStyles = makeStyles((theme) => ({
 
 //============================|| API JWT - LOGIN ||============================//
 
-const RestLogin = (props, { ...others }) => {
+const RestForm = (props, { ...others }) => {
   const classes = useStyles();
-  const dispatcher = useDispatch();
-
+  const history = useHistory();
+  const account = useSelector((state) => state.account);
   const scriptedRef = useScriptRef();
-  const [checked, setChecked] = React.useState(true);
 
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {
@@ -59,43 +52,39 @@ const RestLogin = (props, { ...others }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  
-
+  // console.log(account);
   return (
     <React.Fragment>
       <Grid item xs={12}></Grid>
       <Formik
         initialValues={{
-          email: '',
           password: '',
+          newPassword: '',
           submit: null,
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string()
-            .email('Must be a valid email')
+          password: Yup.string()
             .max(255)
-            .required('Email is required'),
-          password: Yup.string().max(255).required('Password is required'),
+            .required('Current password is required'),
+          newPassword: Yup.string()
+            .max(255)
+            .required('New password is required'),
+          // confirmPassword: Yup.string().max(255).matches(newPassword).required()
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
           try {
             axios
-              .post(configData.API_SERVER + 'users/login', {
+              .post(config.API_SERVER + 'users/change-password', {
+                email: account.user.email,
                 password: values.password,
-                email: values.email,
+                newPassword: values.newPassword,
               })
               .then(function (response) {
-                if (response.data.success) {
-                  // console.log(response.data);
-
-                  dispatcher({
-                    type: USER_ACCOUNT_INITIALIZE,
-                    payload: {
-                      isUserLoggedIn: true,
-                      user: response.data.user,
-                      token: response.data.token,
-                    },
-                  });
+                // console.log(response);
+                if (response.data.message == 'password updated') {
+                  // console.log(response);
+                  // alert('password updated successfully ')
+                  history.push('/users/dashboard');
                   if (scriptedRef.current) {
                     setStatus({ success: true });
                     setSubmitting(false);
@@ -107,6 +96,7 @@ const RestLogin = (props, { ...others }) => {
                 }
               })
               .catch(function (error) {
+                // alert(error)
                 setStatus({ success: false });
                 setErrors({ submit: error.response.data.msg });
                 setSubmitting(false);
@@ -133,47 +123,14 @@ const RestLogin = (props, { ...others }) => {
           <form noValidate onSubmit={handleSubmit} {...others}>
             <FormControl
               fullWidth
-              error={Boolean(touched.email && errors.email)}
-              className={classes.Input}
-            >
-              <InputLabel htmlFor="outlined-adornment-email-login">
-                Email
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-email-login"
-                type="email"
-                value={values.email}
-                name="email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                label="Email Address"
-                inputProps={{
-                  classes: {
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
-              {touched.email && errors.email && (
-                <FormHelperText
-                  error
-                  id="standard-weight-helper-text-email-login"
-                >
-                  {' '}
-                  {errors.email}{' '}
-                </FormHelperText>
-              )}
-            </FormControl>
-
-            <FormControl
-              fullWidth
               error={Boolean(touched.password && errors.password)}
               className={classes.Input}
             >
               <InputLabel htmlFor="outlined-adornment-password-login">
-                Password
+                Current Password
               </InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password-login"
+                id="outlined-adornment-password"
                 type={showPassword ? 'text' : 'password'}
                 value={values.password}
                 name="password"
@@ -201,40 +158,58 @@ const RestLogin = (props, { ...others }) => {
               {touched.password && errors.password && (
                 <FormHelperText
                   error
-                  id="standard-weight-helper-text-password-login"
+                  id="standard-weight-helper-text-newPassword"
                 >
                   {' '}
                   {errors.password}{' '}
                 </FormHelperText>
               )}
             </FormControl>
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-              spacing={1}
+
+            <FormControl
+              fullWidth
+              error={Boolean(touched.newPassword && errors.newPassword)}
+              className={classes.Input}
             >
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={checked}
-                    onChange={(event) => setChecked(event.target.checked)}
-                    name="checked"
-                    color="primary"
-                  />
+              <InputLabel htmlFor="outlined-adornment-password-login">
+                New Password
+              </InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password-login"
+                type={showPassword ? 'text' : 'password'}
+                value={values.newPassword}
+                name="newPassword"
+                onBlur={handleBlur}
+                onChange={handleChange}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
                 }
-                label="Remember me"
+                label="New Password"
+                inputProps={{
+                  classes: {
+                    notchedOutline: classes.notchedOutline,
+                  },
+                }}
               />
-              <Typography
-                variant="subtitle1"
-                component={Link}
-                to="/users/resetPassword"
-                color="secondary"
-                sx={{ textDecoration: 'none' }}
-              >
-                Forgot Password?
-              </Typography>
-            </Stack>
+              {touched.newPassword && errors.newPassword && (
+                <FormHelperText
+                  error
+                  id="standard-weight-helper-text-password-login"
+                >
+                  {' '}
+                  {errors.newPassword}{' '}
+                </FormHelperText>
+              )}
+            </FormControl>
             {errors.submit && (
               <Box
                 sx={{
@@ -260,7 +235,7 @@ const RestLogin = (props, { ...others }) => {
                   variant="contained"
                   color="secondary"
                 >
-                  Sign IN
+                  Change Password{' '}
                 </Button>
               </AnimateButton>
             </Box>
@@ -271,4 +246,4 @@ const RestLogin = (props, { ...others }) => {
   );
 };
 
-export default RestLogin;
+export default RestForm;

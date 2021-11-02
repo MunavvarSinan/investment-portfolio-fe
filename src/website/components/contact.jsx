@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import emailjs, { send } from 'emailjs-com';
+import React from 'react';
+import emailjs from 'emailjs-com';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
@@ -24,12 +24,8 @@ export default function Contact() {
   const FormOption = { resolver: yupResolver(validationSchema) };
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm(FormOption);
-  const onSubmit = (data) => {
-    console.log(data);
-  };
 
   function sendEmail(e) {
     emailjs
@@ -77,7 +73,7 @@ export default function Contact() {
                         type="text"
                         name="name"
                         id="name"
-                        className="form-input"
+                        // className="form-input"
                         placeholder="Your Name"
                         {...register('name')}
                         className={`form-input ${
@@ -95,7 +91,7 @@ export default function Contact() {
                         type="email"
                         name="email"
                         id="email"
-                        className="form-input"
+                        // className="form-input"
                         placeholder="Your E-mail"
                         {...register('email')}
                         className={`form-input ${
@@ -115,7 +111,7 @@ export default function Contact() {
                         type="text"
                         name="subject"
                         id="subject"
-                        className="form-input"
+                        // className="form-input"
                         placeholder="Subject"
                         {...register('subject')}
                         className={`form-input ${
@@ -133,7 +129,7 @@ export default function Contact() {
                         type="text"
                         name="number"
                         id="number"
-                        className="form-input"
+                        // className="form-input"
                         placeholder="Number"
                         {...register('number')}
                         className={`form-input ${
@@ -149,9 +145,8 @@ export default function Contact() {
                   <div className="col-md-12">
                     <div className="single-form">
                       <textarea
-                        name="message"
                         id="message"
-                        className="form-input"
+                        // className="form-input"
                         rows="7"
                         name="message"
                         placeholder="Message"

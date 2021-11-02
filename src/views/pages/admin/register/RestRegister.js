@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 
-import configData from '../../../../config';
+import config from '../../../../config';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -123,7 +123,7 @@ const RestRegister = ({ ...others }) => {
                 onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
                     try {
                         axios
-                            .post( configData.API_SERVER + 'admin/register', {
+                            .post( config.API_SERVER + 'admin/register', {
                                 username: values.username,
                                 password: values.password,
                                 email: values.email

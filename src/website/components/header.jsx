@@ -59,13 +59,13 @@ export default function Header() {
                         </a>
                       </li>
                       <li className="login-btn">
-                        <button
-                          onClick={() => history.push('/coming-soon')}
+                        <a
+                        href="/users/login"
                           className="btn btn-common nav-item"
                           style={{ color: '#37c2cc' }}
                         >
                           Login
-                        </button>
+                        </a>
                       </li>
                     </ul>
                   </div>

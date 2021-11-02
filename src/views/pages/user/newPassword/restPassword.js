@@ -1,25 +1,21 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import {  useParams } from 'react-router-dom';
+
 import configData from '../../../../config';
+import { useHistory } from 'react-router';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
   Box,
   Button,
-  Checkbox,
   FormControl,
-  FormControlLabel,
   FormHelperText,
   IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
   Grid,
-  Typography,
 } from '@material-ui/core';
-import Stack from '@mui/material/Stack';
-
 
 // third party
 import * as Yup from 'yup';
@@ -29,7 +25,6 @@ import axios from 'axios';
 // project imports
 import useScriptRef from '../../../../hooks/useScriptRef';
 import AnimateButton from '../../../../ui-component/extended/AnimateButton';
-import { USER_ACCOUNT_INITIALIZE } from './../../../../store/actions';
 
 // assets
 import Visibility from '@material-ui/icons/Visibility';
@@ -42,15 +37,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-//============================|| API JWT - LOGIN ||============================//
+//============================|| API JWT v- LOGIN ||============================//
 
-const RestLogin = (props, { ...others }) => {
+const RestPassword = ({ ...others }) => {
   const classes = useStyles();
-  const dispatcher = useDispatch();
-
+  const history = useHistory();
+  const { token } = useParams();
+  // console.log(token);
   const scriptedRef = useScriptRef();
-  const [checked, setChecked] = React.useState(true);
-
   const [showPassword, setShowPassword] = React.useState(false);
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
@@ -59,43 +53,52 @@ const RestLogin = (props, { ...others }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  
-
+  useEffect(() => {
+    getData();
+  });
+  const getData = async () => {
+    try {
+      const response = await axios
+        .get(configData.API_SERVER + 'users/reset', {
+          resetToken: token,
+        })
+        .then((res) => {
+          if (res.data.message === 'password reset link a-ok') {
+            console.log('ok');
+          } else {
+            console.log('Not ok');
+          }
+        });
+      // console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <React.Fragment>
       <Grid item xs={12}></Grid>
       <Formik
         initialValues={{
-          email: '',
+          //   email: '',
           password: '',
           submit: null,
         }}
         validationSchema={Yup.object().shape({
-          email: Yup.string()
-            .email('Must be a valid email')
-            .max(255)
-            .required('Email is required'),
           password: Yup.string().max(255).required('Password is required'),
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
           try {
             axios
-              .post(configData.API_SERVER + 'users/login', {
+              .post(configData.API_SERVER + 'users/new-password', {
                 password: values.password,
-                email: values.email,
+                resetToken: token,
               })
               .then(function (response) {
+                history.push('/users/login');
+                // console.log(response);
                 if (response.data.success) {
                   // console.log(response.data);
 
-                  dispatcher({
-                    type: USER_ACCOUNT_INITIALIZE,
-                    payload: {
-                      isUserLoggedIn: true,
-                      user: response.data.user,
-                      token: response.data.token,
-                    },
-                  });
                   if (scriptedRef.current) {
                     setStatus({ success: true });
                     setSubmitting(false);
@@ -131,39 +134,6 @@ const RestLogin = (props, { ...others }) => {
           values,
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
-            <FormControl
-              fullWidth
-              error={Boolean(touched.email && errors.email)}
-              className={classes.Input}
-            >
-              <InputLabel htmlFor="outlined-adornment-email-login">
-                Email
-              </InputLabel>
-              <OutlinedInput
-                id="outlined-adornment-email-login"
-                type="email"
-                value={values.email}
-                name="email"
-                onBlur={handleBlur}
-                onChange={handleChange}
-                label="Email Address"
-                inputProps={{
-                  classes: {
-                    notchedOutline: classes.notchedOutline,
-                  },
-                }}
-              />
-              {touched.email && errors.email && (
-                <FormHelperText
-                  error
-                  id="standard-weight-helper-text-email-login"
-                >
-                  {' '}
-                  {errors.email}{' '}
-                </FormHelperText>
-              )}
-            </FormControl>
-
             <FormControl
               fullWidth
               error={Boolean(touched.password && errors.password)}
@@ -208,33 +178,6 @@ const RestLogin = (props, { ...others }) => {
                 </FormHelperText>
               )}
             </FormControl>
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-              spacing={1}
-            >
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={checked}
-                    onChange={(event) => setChecked(event.target.checked)}
-                    name="checked"
-                    color="primary"
-                  />
-                }
-                label="Remember me"
-              />
-              <Typography
-                variant="subtitle1"
-                component={Link}
-                to="/users/resetPassword"
-                color="secondary"
-                sx={{ textDecoration: 'none' }}
-              >
-                Forgot Password?
-              </Typography>
-            </Stack>
             {errors.submit && (
               <Box
                 sx={{
@@ -260,7 +203,7 @@ const RestLogin = (props, { ...others }) => {
                   variant="contained"
                   color="secondary"
                 >
-                  Sign IN
+                  Update Password
                 </Button>
               </AnimateButton>
             </Box>
@@ -271,4 +214,4 @@ const RestLogin = (props, { ...others }) => {
   );
 };
 
-export default RestLogin;
+export default RestPassword;

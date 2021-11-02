@@ -15,14 +15,13 @@ import {
 // project imports
 import MainCard from '../../../ui-component/cards/MainCard';
 import TotalIncomeCard from '../../../ui-component/cards/Skeleton/TotalIncomeCard';
-
+import {RemoveCircleOutline} from '@material-ui/icons'
 // assets
-import StorefrontTwoToneIcon from '@material-ui/icons/StorefrontTwoTone';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
   card: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.secondary.main,
     color: theme.palette.primary.light,
     overflow: 'hidden',
     position: 'relative',
@@ -59,7 +58,8 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     ...theme.typography.commonAvatar,
     ...theme.typography.largeAvatar,
-    backgroundColor: theme.palette.primary[800],
+    // backgroundColor: theme.palette.primary[800],
+    backgroundColor: theme.palette.secondary.dark,
     color: '#fff',
   },
   primary: {
@@ -98,8 +98,9 @@ const history = useHistory()
                 <Avatar
                   variant="rounded"
                   className={classes.avatar}
+                  onClick={() => history.push('/users/addMoney')}
                 >
-                  <StorefrontTwoToneIcon  fontSize="inherit" />
+                  <RemoveCircleOutline  fontSize="inherit" />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
@@ -109,11 +110,6 @@ const history = useHistory()
                 }}
                 className={classes.padding}
                 primary={<Typography variant="h4" className={classes.primary}>Withdraw Fund</Typography>}
-                // secondary={
-                //     <Typography variant="subtitle2" className={classes.secondary}>
-                //         Total Income
-                //     </Typography>
-                // }
               />
             </ListItem>
           </List>

@@ -1,10 +1,9 @@
 // assets
-import { IconDashboard, IconDeviceAnalytics } from '@tabler/icons';
+import { IconDashboard } from '@tabler/icons';
 
 // constant
 const icons = {
   IconDashboard: IconDashboard,
-  IconDeviceAnalytics,
 };
 // const dashboard = {
 //   if()
@@ -13,7 +12,6 @@ const icons = {
 //-----------------------|| DASHBOARD MENU ITEMS ||-----------------------//
 
 export const dashboard = {
-  
   id: 'user-dashboard',
   // title: 'Dashboard',
   type: 'group',

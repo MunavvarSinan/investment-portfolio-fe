@@ -534,7 +534,7 @@ p {
   height: 100%;
   border-style: solid;
   /* Spinner Color */
-  border-color: #37C2CC #37C2CC rgba(0, 0, 0, 0.1);
+  border-color: #37c2cc #37c2cc rgba(0, 0, 0, 0.1);
   border-radius: 50%;
   border-width: 6px;
 }
@@ -611,7 +611,6 @@ p {
     transform: rotate(-130deg);
   }
 }
-
 
 /* Hero css */
 
@@ -1156,6 +1155,13 @@ p {
 .footer .footer-widget .logo {
   margin-bottom: 30px;
 }
+@media (max-width: 786px) {
+  .footer .footer-widget .logo {
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
 
 .footer .footer-widget .desc {
   margin-bottom: 25px;
@@ -1268,5 +1274,5 @@ p {
 }
 
 .footer .copyright a:hover {
-  color: #606EFF;
+  color: #606eff;
 }

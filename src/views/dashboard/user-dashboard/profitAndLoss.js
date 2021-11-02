@@ -5,9 +5,6 @@ import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/styles';
 import { Avatar, Grid, Typography } from '@material-ui/core';
 
-// third-party
-import Chart from 'react-apexcharts';
-
 // project imports
 import MainCard from '../../../ui-component/cards/MainCard';
 import SkeletonTotalOrderCard from '../../../ui-component/cards/Skeleton/EarningCard';
@@ -19,8 +16,8 @@ import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 // style constant
 const useStyles = makeStyles((theme) => ({
   card: {
-    backgroundColor: theme.palette.primary.dark,
-    // backgroundColor: theme.palette.secondary.main,
+    // backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.secondary.main,
     color: '#fff',
     overflow: 'hidden',
     position: 'relative',
@@ -33,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
       position: 'absolute',
       width: '210px',
       height: '210px',
-      background: theme.palette.primary[800],
-      // background: '#046b72cc',
+      // background: theme.palette.primary[800],
+      background: '#046b72cc',
       borderRadius: '50%',
       top: '-85px',
       right: '-95px',
@@ -48,8 +45,8 @@ const useStyles = makeStyles((theme) => ({
       position: 'absolute',
       width: '210px',
       height: '210px',
-      background: theme.palette.primary[800],
-      // background: '#007d87',
+      // background: theme.palette.primary[800],
+      background: '#007d87',
       borderRadius: '50%',
       top: '-125px',
       right: '-15px',
@@ -107,10 +104,7 @@ const useStyles = makeStyles((theme) => ({
 const ProfitAndLoss = ({ isLoading }) => {
   const classes = useStyles();
   const account = useSelector((state) => state.account);
-  const [timeValue, setTimeValue] = React.useState(false);
-  const handleChangeTime = (event, newValue) => {
-    setTimeValue(newValue);
-  };
+
   const profitAndLoss = account.user.currentAmount - account.user.investedAmount;
 
   return (

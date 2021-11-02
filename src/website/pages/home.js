@@ -12,12 +12,10 @@ import {
 export const Home = () => {
   return (
     <>
-      {/* <Preloader /> */}
       <Header />
       <Banner />
       <About />
       <Features />
-      {/* <Pricing /> */}
       <Disclimer />
       <Contact />
       <Footer />

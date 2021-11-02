@@ -10,6 +10,7 @@ const AdminAuth = ({ children }) => {
   if (isAdminLoggedIn  == 'true') {
     // console.log(admin.username);
     return <Redirect to="/admin/dashboard" />;
+    
   }
   if (isAdminLoggedIn == false) {
     return <Redirect to="/admin/login" />;

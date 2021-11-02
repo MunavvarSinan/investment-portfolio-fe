@@ -6,7 +6,8 @@ import { Redirect } from 'react-router-dom';
 
 const AuthGuard = ({ children }) => {
   const account = useSelector((state) => state.account);
-  const { isUserLoggedIn } = account;
+  const { isUserLoggedIn , user} = account;
+  // console.log(user);
 
   if (isUserLoggedIn == 'true') {
     return <Redirect to="/users/dashboard" />;

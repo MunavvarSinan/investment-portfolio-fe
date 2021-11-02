@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { Route, Switch, useLocation, Redirect } from 'react-router-dom';
+import { Route, Switch, useLocation } from 'react-router-dom';
 
 // project imports
 import GuestGuard from '../utils/route-guard/GuestGuard';
@@ -8,13 +8,17 @@ import NavMotion from '../layout/NavMotion';
 import Loadable from '../ui-component/Loadable';
 
 // login routing
-const userLogin = Loadable(
-  lazy(() => import('../views/pages/user/login'))
-);
-const userRegister = Loadable(
-  lazy(() => import('../views/pages/user/register'))
-);
+const userLogin = Loadable(lazy(() => import('../views/pages/user/login')));
 
+const ResetPassword = Loadable(
+  lazy(() => import('../views/pages/user/restPassword'))
+);
+const NewPassword = Loadable(
+  lazy(() => import('../views/pages/user/newPassword'))
+);
+const ResetPswdSent = Loadable(
+  lazy(() => import('../views/pages/user/restPassword/successScreen'))
+);
 
 const UserLoginRoutes = () => {
   const location = useLocation();
@@ -23,7 +27,9 @@ const UserLoginRoutes = () => {
     <Route
       path={[
         '/users/login',
-        '/users/register'
+        '/users/resetPassword',
+        '/users/resetEmailSent',
+        '/users/reset/:token'
       ]}
     >
       <MinimalLayout>
@@ -31,7 +37,9 @@ const UserLoginRoutes = () => {
           <NavMotion>
             <GuestGuard>
               <Route path="/users/login" component={userLogin} />
-              <Route path="/users/register" component={userRegister} />
+              <Route path="/users/resetPassword" component={ResetPassword} />
+              <Route path="/users/resetEmailSent" component={ResetPswdSent} />
+              <Route path="/users/reset/:token" component={NewPassword} />
             </GuestGuard>
           </NavMotion>
         </Switch>

@@ -1,41 +1,5 @@
-// import React, { useEffect, useState } from 'react';
-// import axios from 'axios'
-// import config from '../../../config';
-// import AdminGetUserCount from './allUsers';
-// // import { Grid } from '@material-ui/core';
-
-// const AdminDashboard = () => {
-//   const [users, setUsers] = useState([]);
-//   const [admins, setAdmins] = useState([]);
-
-//   useEffect(() => {
-//     getData();
-    
-//   }, []);
-//   useEffect(() => {
-//   }, []);
-//   const getData = async () => {
-//     const response = await axios.get(config.API_SERVER + 'admin/getAllUsers');
-//     setUsers(response.data.users);
-//     const adm =  await axios.get(config.API_SERVER + 'admin/getAllAdmins')
-//     setAdmins(adm.data.admins)
-//     console.log(response);
-//   };
-
-
-
-//   return (
-//     <>
-//      <AdminGetUserCount allUsers={users.length} />
-//       <h1>Admins {admins.length}</h1>
-//       </>
-//   )
-// };
-
-// export default AdminDashboard
-
-import React, {useState, useEffect} from 'react';
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import config from '../../../config';
 // material-ui
 import { Grid } from '@material-ui/core';
@@ -53,22 +17,19 @@ const AdminDashboard = () => {
     setLoading(false);
   }, []);
 
-  
   const [users, setUsers] = useState([]);
   const [admins, setAdmins] = useState([]);
 
   useEffect(() => {
     getData();
-    
   }, []);
-  useEffect(() => {
-  }, []);
+  useEffect(() => {}, []);
   const getData = async () => {
     const response = await axios.get(config.API_SERVER + 'admin/getAllUsers');
     setUsers(response.data.users);
-    const adm =  await axios.get(config.API_SERVER + 'admin/getAllAdmins')
-    setAdmins(adm.data.admins)
-    console.log(response);
+    const adm = await axios.get(config.API_SERVER + 'admin/getAllAdmins');
+    setAdmins(adm.data.admins);
+    // console.log(response);
   };
 
   return (
@@ -76,10 +37,18 @@ const AdminDashboard = () => {
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
           <Grid item lg={6} md={6} sm={6} xs={12}>
-            <AdminGetUserCount isLoading={isLoading} allUsers={users.length}  />
+            <AdminGetUserCount
+              isLoading={isLoading}
+              allUsers={users.length}
+              heading="Total Users"
+            />
           </Grid>
           <Grid item lg={6} md={6} sm={6} xs={12}>
-            <AdminGetUserCount isLoading={isLoading} allAdmins={admins.length}  />
+            <AdminGetUserCount
+              isLoading={isLoading}
+              allAdmins={admins.length}
+              heading="Total Admins"
+            />
           </Grid>
         </Grid>
       </Grid>

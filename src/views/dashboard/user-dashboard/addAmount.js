@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -17,12 +17,11 @@ import MainCard from '../../../ui-component/cards/MainCard';
 import TotalIncomeCard from '../../../ui-component/cards/Skeleton/TotalIncomeCard';
 
 // assets
-import TableChartOutlinedIcon from '@material-ui/icons/TableChartOutlined';
-
+import {AddBoxOutlined} from  '@material-ui/icons'
 // style constant
 const useStyles = makeStyles((theme) => ({
   card: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.secondary.main,
     color: theme.palette.primary.light,
     overflow: 'hidden',
     position: 'relative',
@@ -59,7 +58,7 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     ...theme.typography.commonAvatar,
     ...theme.typography.largeAvatar,
-    backgroundColor: theme.palette.primary[800],
+    backgroundColor: theme.palette.secondary.dark,
     color: '#fff',
   },
   primary: {
@@ -79,6 +78,7 @@ const useStyles = makeStyles((theme) => ({
 
 const TotalIncomeDarkCard = ({ isLoading }) => {
   const classes = useStyles();
+  const history = useHistory()
 
   return (
     <React.Fragment>
@@ -98,8 +98,8 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
               className={classes.padding}
             >
               <ListItemAvatar>
-                <Avatar variant="rounded" className={classes.avatar}>
-                  <TableChartOutlinedIcon fontSize="inherit" />
+                <Avatar variant="rounded" className={classes.avatar} onClick={() => history.push("/users/addMoney")}>
+                  <AddBoxOutlined fontSize="inherit" />
                 </Avatar>
               </ListItemAvatar>
               <ListItemText
@@ -117,11 +117,6 @@ const TotalIncomeDarkCard = ({ isLoading }) => {
                   </Link>
                   // </a>
                 }
-                // secondary={
-                //     <Typography variant="subtitle2" className={classes.secondary}>
-                //         Total Income
-                //     </Typography>
-                // }
               />
             </ListItem>
           </List>

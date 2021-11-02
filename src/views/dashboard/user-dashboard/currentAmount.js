@@ -3,27 +3,22 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
-import { Avatar, Button, Grid, Typography } from '@material-ui/core';
+import { Avatar, Grid, Typography } from '@material-ui/core';
 
 // third-party
-import Chart from 'react-apexcharts';
 
 // project imports
 import MainCard from '../../../ui-component/cards/MainCard';
 import SkeletonTotalOrderCard from '../../../ui-component/cards/Skeleton/EarningCard';
 
-import ChartDataMonth from './chart-data/total-order-month-line-chart';
-import ChartDataYear from './chart-data/total-order-year-line-chart';
-
 // assets
-import LocalMallOutlinedIcon from '@material-ui/icons/LocalMallOutlined';
 import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
 // style constant
 const useStyles = makeStyles((theme) => ({
   card: {
-    backgroundColor: theme.palette.primary.dark,
+    backgroundColor: theme.palette.secondary.main,
     color: '#fff',
     overflow: 'hidden',
     position: 'relative',
@@ -36,8 +31,8 @@ const useStyles = makeStyles((theme) => ({
       position: 'absolute',
       width: '210px',
       height: '210px',
-      background: theme.palette.primary[800],
-      // background: '#046b72cc',
+      // background: theme.palette.primary[800],
+      background: '#046b72cc',
       borderRadius: '50%',
       top: '-85px',
       right: '-95px',
@@ -51,8 +46,8 @@ const useStyles = makeStyles((theme) => ({
       position: 'absolute',
       width: '210px',
       height: '210px',
-      background: theme.palette.primary[800],
-      // background: '#007d87',
+      // background: theme.palette.primary[800],
+      background: '#007d87',
       borderRadius: '50%',
       top: '-125px',
       right: '-15px',
@@ -111,10 +106,7 @@ const useStyles = makeStyles((theme) => ({
 const TotalOrderLineChartCard = ({ isLoading }) => {
   const classes = useStyles();
   const account = useSelector((state) => state.account);
-  const [timeValue, setTimeValue] = React.useState(false);
-  const handleChangeTime = (event, newValue) => {
-    setTimeValue(newValue);
-  };
+
 
   return (
     <React.Fragment>

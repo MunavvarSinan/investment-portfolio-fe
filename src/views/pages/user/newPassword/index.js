@@ -1,21 +1,28 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink} from 'react-router-dom';
 
 // material-ui
 import { useTheme } from '@material-ui/core';
-import { Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
+import {
+  Divider,
+  Grid,
+  
+  Typography,
+  useMediaQuery,
+} from '@material-ui/core';
 import Stack from '@mui/material/Stack';
 
 // project imports
 import AuthWrapper1 from './../../AuthWrapper1';
 import Logo from './../../../../ui-component/Logo';
 import AuthCardWrapper from './../../AuthCardWrapper';
-import RestLogin from './RestLogin';
+import RestPassword from './restPassword';
 // assets
 
 //================================|| LOGIN MAIN ||================================//
 
-const Login = () => {
+const NewPassword = () => {
+
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
   return (
@@ -60,6 +67,13 @@ const Login = () => {
                           spacing={1}
                         >
                           <Typography
+                            color={theme.palette.secondary.main}
+                            gutterBottom
+                            variant={matchDownSM ? 'h3' : 'h2'}
+                          >
+                            Hi, Welcome Back
+                          </Typography>
+                          <Typography
                             variant="caption"
                             fontSize="16px"
                             textAlign={matchDownSM ? 'center' : ''}
@@ -70,9 +84,9 @@ const Login = () => {
                       </Grid>
                     </Grid>
                   </Grid>
-
+             
                   <Grid item xs={12}>
-                    <RestLogin />
+                    <RestPassword />
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />
@@ -87,4 +101,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default NewPassword;

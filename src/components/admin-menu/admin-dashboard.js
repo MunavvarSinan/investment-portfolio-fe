@@ -1,21 +1,20 @@
-import { IconDashboard, IconDeviceAnalytics } from "@tabler/icons";
+import { IconDashboard } from '@tabler/icons';
 
 const icons = {
-    IconDashboard: IconDashboard,
-    IconDeviceAnalytics: IconDeviceAnalytics
-}
+  IconDashboard: IconDashboard,
+};
 
 export const adminDashboard = {
-    id:'admin-dashboard',
-    type: 'group',
-    children:[
-        {
-            id: 'admin',
-            title: 'Admin Dashboard',
-            type: 'item',
-            url: '/admin/dashboard',
-            icon: icons ['IconDashboard'],
-            breadcrumbs: false,
-        }
-    ]
-}
+  id: 'admin-dashboard',
+  type: 'group',
+  children: [
+    {
+      id: 'admin',
+      title: 'Admin Dashboard',
+      type: 'item',
+      url: '/admin/dashboard',
+      icon: icons['IconDashboard'],
+      breadcrumbs: false,
+    },
+  ],
+};

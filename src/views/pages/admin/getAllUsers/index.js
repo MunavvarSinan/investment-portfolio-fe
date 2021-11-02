@@ -3,6 +3,8 @@ import axios from 'axios';
 import config from '../../../../config';
 import { makeStyles } from '@material-ui/styles';
 import IconButton from '@material-ui/core/IconButton';
+import AddTransactionHistory from '../addTransactionHistory';
+import AdminAddUsers from '../addUser';
 import {
   Table,
   TableBody,
@@ -17,7 +19,6 @@ import EditIcon from '@material-ui/icons/EditOutlined';
 import DeleteIcon from '@material-ui/icons/DeleteOutlined';
 import DoneIcon from '@material-ui/icons/DoneAllTwoTone';
 import RevertIcon from '@material-ui/icons/NotInterestedOutlined';
-import AddIcon from '@material-ui/icons/AddBox';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -63,35 +64,24 @@ const CustomTableCell = ({ row, name, onChange }) => {
 
 const GetAllUsers = () => {
   const [rows, setRows] = useState([]);
-  const [updateRows, setUpdateRows] = useState({
-    id: '',
-    username: '',
-    email: '',
-    investedAmount: '',
-    currentAmount: '',
-  });
   const [previous, setPrevious] = useState({});
   const classes = useStyles();
+
   useEffect(() => {
     getData();
   }, []);
-  // useEffect(() => {
-  //   // getData();
-  //   updateRow();
-  // }, []);
+
+
   const getData = async () => {
     const response = await axios.get(config.API_SERVER + 'admin/getAllUsers');
     setRows(response.data.users);
     //  console.log(response.data.users);
   };
-  const userId = rows.map((user) => user.id);
+  // console.log(rows);
   // console.log(userId);
   const updateRow = (row) => {
     const { id, email, username, investedAmount, currentAmount } = row;
-    //  const response= await axios.put(config.API_SERVER + `admin/editUser/${userId}`);
-    //  console.log(response);
-    // row.preventDefault();
-    // rows.map((row) => {
+
     const data = {
       id: id,
       username: username,
@@ -107,6 +97,7 @@ const GetAllUsers = () => {
       .then((res) => res);
   };
   const onToggleEditMode = (id) => {
+    // console.log(id);
     setRows((state) => {
       return rows.map((row) => {
         updateRow(row);
@@ -119,18 +110,25 @@ const GetAllUsers = () => {
     });
     // updateRow(setRows())
   };
-  const onToggleDelete = (id) => {
-    axios
-      .delete(config.API_SERVER + `admin/delete/${id}`)
-      .then((res) => console.log(res));
+
+  const onToggleDelete = (row) => {
+    const { id } = row;
+    
+    // handleClickOpen()
+    axios.delete(config.API_SERVER + `admin/delete/${id}`).then((res) => {
+      // console.log(res);
+    });
+    // setOpen(false)
   };
+
   const onChange = async (e, row) => {
+    // console.log(row.id);
     if (!previous[row.id]) {
       setPrevious((state) => ({ ...state, [row.id]: row }));
     }
     const { value, name } = e.target;
     const { id } = row;
-    console.log(id);
+    // console.log(id);
     const newRows = rows.map((row) => {
       if (row.id === id) {
         return { ...row, [name]: value };
@@ -159,14 +157,8 @@ const GetAllUsers = () => {
 
   return (
     <Paper className={classes.root}>
-      <IconButton
-        aria-label="add"
-        align="right"
-        onClick={() => console.log('Add User')}
-      >
-        <AddIcon />
-        <h5>Add User</h5>
-      </IconButton>
+      <AdminAddUsers />
+
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
@@ -179,7 +171,6 @@ const GetAllUsers = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          
           {rows.map((row) => (
             <TableRow key={row.id}>
               <CustomTableCell {...{ row, name: 'username', onChange }} />
@@ -210,14 +201,48 @@ const GetAllUsers = () => {
                     <EditIcon />
                   </IconButton>
                 )}
+
                 <IconButton
                   aria-label="delete"
-                  onClick={() => onToggleDelete(row.id)}
+                  // onClick={() => ConfirmDialog(row)}
+                  onClick={() =>       {
+                    const confirmBox = window.confirm(
+                      "Are you sure"
+                    )
+                    if (confirmBox === true) {
+                     onToggleDelete(row)
+                    }
+                  }}
                 >
                   <DeleteIcon />
+                  {/* <ConfirmDialog row={row.id} /> */}
                 </IconButton>
+         
+                {/* <Dialog
+                  open={open}
+                  onClose={handleClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-slide-title">
+                    Delete User
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-slide-description">
+                      Are you sure. Do you want to delete this user?
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={handleClose}>Disagree</Button>
+                    <Button onClick={() => console.log(row)} autoFocus>
+                      Agree
+                    </Button>
+                  </DialogActions>
+                </Dialog> */}
+                
+                <AddTransactionHistory row={row} />
               </TableCell>
-              
+
               {/* <CustomTableCell {...{ row, name: 'protein', onChange }} /> */}
             </TableRow>
           ))}

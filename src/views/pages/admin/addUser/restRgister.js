@@ -1,57 +1,91 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import configData from '../../../../config';
+
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
   Box,
   Button,
-  Checkbox,
   FormControl,
-  FormControlLabel,
   FormHelperText,
+  Grid,
   IconButton,
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  Grid,
-  Typography,
+  TextField,
+  useMediaQuery,
 } from '@material-ui/core';
-import Stack from '@mui/material/Stack';
-
 
 // third party
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import axios from 'axios';
 
-// project imports
+// project import
 import useScriptRef from '../../../../hooks/useScriptRef';
-import AnimateButton from '../../../../ui-component/extended/AnimateButton';
-import { USER_ACCOUNT_INITIALIZE } from './../../../../store/actions';
-
-// assets
+import AnimateButton from './../../../../ui-component/extended/AnimateButton';
 import Visibility from '@material-ui/icons/Visibility';
 import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import config from '../../../../config';
 
-// style constant
 const useStyles = makeStyles((theme) => ({
+  redButton: {
+    fontSize: '1rem',
+    fontWeight: 500,
+    backgroundColor: theme.palette.grey[50],
+    border: '1px solid',
+    borderColor: theme.palette.grey[100],
+    color: theme.palette.grey[700],
+    textTransform: 'none',
+    '&:hover': {
+      backgroundColor: theme.palette.primary.light,
+    },
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '0.875rem',
+    },
+  },
+  signDivider: {
+    flexGrow: 1,
+  },
+  signText: {
+    cursor: 'unset',
+    margin: theme.spacing(2),
+    padding: '5px 56px',
+    borderColor: theme.palette.grey[100] + ' !important',
+    color: theme.palette.grey[900] + '!important',
+    fontWeight: 500,
+  },
+  loginIcon: {
+    marginRight: '16px',
+    [theme.breakpoints.down('sm')]: {
+      marginRight: '8px',
+    },
+  },
   Input: {
     ...theme.typography.customInput,
   },
+  number: {
+    '& input[type=number]': {
+      '-moz-appearance': 'textfield',
+    },
+    '& input[type=number]::-webkit-outer-spin-button': {
+      '-webkit-appearance': 'none',
+      margin: 0,
+    },
+    '& input[type=number]::-webkit-inner-spin-button': {
+      '-webkit-appearance': 'none',
+      margin: 0,
+    },
+  },
 }));
 
-//============================|| API JWT - LOGIN ||============================//
-
-const RestLogin = (props, { ...others }) => {
+const AdminUserRestRegister = ({ setOpen, ...others }) => {
   const classes = useStyles();
-  const dispatcher = useDispatch();
-
   const scriptedRef = useScriptRef();
-  const [checked, setChecked] = React.useState(true);
-
+  const matchDownSM = useMediaQuery((theme) => theme.breakpoints.down('sm'));
   const [showPassword, setShowPassword] = React.useState(false);
+
+
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
@@ -59,47 +93,44 @@ const RestLogin = (props, { ...others }) => {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  
+
+
 
   return (
     <React.Fragment>
-      <Grid item xs={12}></Grid>
       <Formik
         initialValues={{
+          username: '',
           email: '',
+          mobileNumber: '',
           password: '',
           submit: null,
         }}
+        // .matches(/^([a-z\-]+@smartfunds\.co\.in)$/, 'Not a valid Email').  *** For custum email domain ***
         validationSchema={Yup.object().shape({
           email: Yup.string()
             .email('Must be a valid email')
             .max(255)
             .required('Email is required'),
+          mobileNumber: Yup.number('Number is invalid').required(
+            'Mobile number is required'
+          ),
+          username: Yup.string().required('Username is required'),
           password: Yup.string().max(255).required('Password is required'),
         })}
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
           try {
             axios
-              .post(configData.API_SERVER + 'users/login', {
+              .post(config.API_SERVER + 'users/register', {
+                username: values.username,
                 password: values.password,
+                mobileNumber: values.mobileNumber,
                 email: values.email,
               })
               .then(function (response) {
+                // console.log(response);
                 if (response.data.success) {
-                  // console.log(response.data);
-
-                  dispatcher({
-                    type: USER_ACCOUNT_INITIALIZE,
-                    payload: {
-                      isUserLoggedIn: true,
-                      user: response.data.user,
-                      token: response.data.token,
-                    },
-                  });
-                  if (scriptedRef.current) {
-                    setStatus({ success: true });
-                    setSubmitting(false);
-                  }
+                  setOpen(false);
                 } else {
                   setStatus({ success: false });
                   setErrors({ submit: response.data.msg });
@@ -112,7 +143,7 @@ const RestLogin = (props, { ...others }) => {
                 setSubmitting(false);
               });
           } catch (err) {
-            console.error(err);
+            // console.error(err);
             if (scriptedRef.current) {
               setStatus({ success: false });
               setErrors({ submit: err.message });
@@ -131,22 +162,71 @@ const RestLogin = (props, { ...others }) => {
           values,
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
+            <Grid container spacing={matchDownSM ? 0 : 2}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Username"
+                  margin="normal"
+                  name="username"
+                  id="username"
+                  type="text"
+                  value={values.username}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  className={classes.Input}
+                  error={touched.username && Boolean(errors.username)}
+                />
+                {touched.username && errors.username && (
+                  <FormHelperText
+                    error
+                    id="standard-weight-helper-text--register"
+                  >
+                    {errors.username}
+                  </FormHelperText>
+                )}
+              </Grid>
+            </Grid>
+            <Grid container spacing={matchDownSM ? 0 : 2}>
+              <Grid item xs={12}>
+                <TextField
+                  fullWidth
+                  label="Mobile Number"
+                  margin="normal"
+                  name="mobileNumber"
+                  id="mobileNumber"
+                  type="number"
+                  value={values.mobileNumer}
+                  onBlur={handleBlur}
+                  onChange={handleChange}
+                  className={(classes.Input, classes.number)}
+                  error={touched.mobileNumber && Boolean(errors.mobileNumber)}
+                />
+                {touched.mobileNumber && errors.mobileNumber && (
+                  <FormHelperText
+                    error
+                    id="standard-weight-helper-text--register"
+                  >
+                    {errors.mobileNumber}
+                  </FormHelperText>
+                )}
+              </Grid>
+            </Grid>
             <FormControl
               fullWidth
               error={Boolean(touched.email && errors.email)}
               className={classes.Input}
             >
-              <InputLabel htmlFor="outlined-adornment-email-login">
+              <InputLabel htmlFor="outlined-adornment-email-register">
                 Email
               </InputLabel>
               <OutlinedInput
-                id="outlined-adornment-email-login"
+                id="outlined-adornment-email-register"
                 type="email"
                 value={values.email}
                 name="email"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                label="Email Address"
                 inputProps={{
                   classes: {
                     notchedOutline: classes.notchedOutline,
@@ -156,7 +236,7 @@ const RestLogin = (props, { ...others }) => {
               {touched.email && errors.email && (
                 <FormHelperText
                   error
-                  id="standard-weight-helper-text-email-login"
+                  id="standard-weight-helper-text--register"
                 >
                   {' '}
                   {errors.email}{' '}
@@ -169,16 +249,19 @@ const RestLogin = (props, { ...others }) => {
               error={Boolean(touched.password && errors.password)}
               className={classes.Input}
             >
-              <InputLabel htmlFor="outlined-adornment-password-login">
+              <InputLabel htmlFor="outlined-adornment-password-register">
                 Password
               </InputLabel>
               <OutlinedInput
-                id="outlined-adornment-password-login"
+                id="outlined-adornment-password-register"
                 type={showPassword ? 'text' : 'password'}
                 value={values.password}
                 name="password"
+                label="Password"
                 onBlur={handleBlur}
-                onChange={handleChange}
+                onChange={(e) => {
+                  handleChange(e);
+                }}
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton
@@ -191,7 +274,6 @@ const RestLogin = (props, { ...others }) => {
                     </IconButton>
                   </InputAdornment>
                 }
-                label="Password"
                 inputProps={{
                   classes: {
                     notchedOutline: classes.notchedOutline,
@@ -201,40 +283,13 @@ const RestLogin = (props, { ...others }) => {
               {touched.password && errors.password && (
                 <FormHelperText
                   error
-                  id="standard-weight-helper-text-password-login"
+                  id="standard-weight-helper-text-password-register"
                 >
-                  {' '}
-                  {errors.password}{' '}
+                  {errors.password}
                 </FormHelperText>
               )}
             </FormControl>
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-              spacing={1}
-            >
-              <FormControlLabel
-                control={
-                  <Checkbox
-                    checked={checked}
-                    onChange={(event) => setChecked(event.target.checked)}
-                    name="checked"
-                    color="primary"
-                  />
-                }
-                label="Remember me"
-              />
-              <Typography
-                variant="subtitle1"
-                component={Link}
-                to="/users/resetPassword"
-                color="secondary"
-                sx={{ textDecoration: 'none' }}
-              >
-                Forgot Password?
-              </Typography>
-            </Stack>
+
             {errors.submit && (
               <Box
                 sx={{
@@ -260,7 +315,7 @@ const RestLogin = (props, { ...others }) => {
                   variant="contained"
                   color="secondary"
                 >
-                  Sign IN
+                  Add User{' '}
                 </Button>
               </AnimateButton>
             </Box>
@@ -271,4 +326,4 @@ const RestLogin = (props, { ...others }) => {
   );
 };
 
-export default RestLogin;
+export default AdminUserRestRegister;

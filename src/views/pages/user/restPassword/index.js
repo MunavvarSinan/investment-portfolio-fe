@@ -1,26 +1,28 @@
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-
-// material-ui
+import React from 'react'
+import { Link as RouterLink } from 'react-router-dom'
 import { useTheme } from '@material-ui/core';
-import { Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
-import Stack from '@mui/material/Stack';
+import {
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from '@material-ui/core';
 
-// project imports
-import AuthWrapper1 from './../../AuthWrapper1';
-import Logo from './../../../../ui-component/Logo';
-import AuthCardWrapper from './../../AuthCardWrapper';
-import RestLogin from './RestLogin';
-// assets
+import AuthWrapper1 from '../../AuthWrapper1';
+import AuthCardWrapper from '../../AuthCardWrapper';
+import Logo from '../../../../ui-component/Logo';
+import ResetForm from './restPswdForm';
 
-//================================|| LOGIN MAIN ||================================//
 
-const Login = () => {
-  const theme = useTheme();
-  const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
-  return (
-    <AuthWrapper1>
-      <Grid
+
+
+const ResetPassword = () => {
+
+      const theme = useTheme();
+      const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+    return (
+        <AuthWrapper1>
+             <Grid
         container
         direction="column"
         justifyContent="flex-end"
@@ -64,18 +66,14 @@ const Login = () => {
                             fontSize="16px"
                             textAlign={matchDownSM ? 'center' : ''}
                           >
-                            Enter your credentials to continue
+                            Enter Your Email Address
                           </Typography>
                         </Stack>
                       </Grid>
                     </Grid>
                   </Grid>
-
                   <Grid item xs={12}>
-                    <RestLogin />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider />
+                    <ResetForm />
                   </Grid>
                 </Grid>
               </AuthCardWrapper>
@@ -83,8 +81,8 @@ const Login = () => {
           </Grid>
         </Grid>
       </Grid>
-    </AuthWrapper1>
-  );
-};
+        </AuthWrapper1>
+    )
+}
 
-export default Login;
+export default ResetPassword

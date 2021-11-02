@@ -16,5 +16,6 @@ export const adminPages = {
       url: '/admin/allAdmins',
       breadcrumbs: false,
     },
+
   ],
 };

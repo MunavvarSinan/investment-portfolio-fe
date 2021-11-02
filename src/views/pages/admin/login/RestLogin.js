@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
-import configData from '../../../../config';
-import GoogleLogin from 'react-google-login'
+import config from '../../../../config';
 // material-ui
 import { makeStyles } from '@material-ui/styles';
 import {
@@ -17,13 +15,10 @@ import {
   InputAdornment,
   InputLabel,
   OutlinedInput,
-  Grid,
   Typography,
 } from '@material-ui/core';
 import Stack from '@mui/material/Stack';
 
-import { GOOGLE_AUTH_LINK } from '../../../../constants';
-import Google from './../../../../assets/images/icons/social-google.svg';
 
 // third party
 import * as Yup from 'yup';
@@ -90,19 +85,7 @@ const RestLogin = (props, { ...others }) => {
   const handleClickShowPassword = () => {
     setShowPassword(!showPassword);
   };
-  const handleLogin = async googleData => {
-    const res = await fetch(configData.API_SERVER + '/users/login/google ', {
-        method: "POST",
-        body: JSON.stringify({
-        token: googleData.tokenId
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-    const data = await res.json()
-    // store returned user somehow
-  }
+ 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
@@ -118,7 +101,7 @@ const RestLogin = (props, { ...others }) => {
         validationSchema={Yup.object().shape({
           email: Yup.string()
             .email('Must be a valid email')
-            .matches(/^([a-z\-]+@smartfunds\.co\.in)$/, 'Not a valid Email')
+            .matches(/^([a-z]+@smartfunds\.co\.in)$/, 'Not a valid Email')
             .max(255)
             .required('Email is required'),
           password: Yup.string().max(255).required('Password is required'),
@@ -126,14 +109,14 @@ const RestLogin = (props, { ...others }) => {
         onSubmit={(values, { setErrors, setStatus, setSubmitting }) => {
           try {
             axios
-              .post(configData.API_SERVER + 'admin/login', {
+              .post(config.API_SERVER + 'admin/login', {
                 password: values.password,
                 email: values.email,
               })
               .then(function (response) {
                 if (response.data.success) {
                   // history.push('/admin/dashboard')
-                  console.log(response.data);
+                  // console.log(response.data);
                   dispatcher({
                     type: ADMIN_ACCOUNT_INITIALIZE,
                     payload: {
@@ -142,10 +125,6 @@ const RestLogin = (props, { ...others }) => {
                       token: response.data.token,
                     },
                   });
-
-                  // if(response.data.admin) {
-                  //   <Redirect to="/admin/dashboard"/>
-                  // }
 
                   if (scriptedRef.current) {
                     setStatus({ success: true });
@@ -182,33 +161,6 @@ const RestLogin = (props, { ...others }) => {
           values,
         }) => (
           <form noValidate onSubmit={handleSubmit} {...others}>
-            <Grid item xs={12}>
-              {/* <AnimateButton>
-                <Button
-                  disableElevation
-                  fullWidth={true}
-                  className={classes.redButton}
-                  href={GOOGLE_AUTH_LINK}
-                  size="large"
-                  variant="contained"
-                >
-                  <img
-                    src={Google}
-                    alt="google"
-                    width="20px"
-                    className={classes.loginIcon}
-                  />{' '}
-                  Sign in with Google
-                </Button>
-              </AnimateButton> */}
-              <GoogleLogin
-                clientId={configData.GOOGLE_CLIENT_ID}
-                buttonText="Log in with Google"
-                onSuccess={handleLogin}
-                onFailure={handleLogin}
-                cookiePolicy={'single_host_origin'}
-              />
-            </Grid>
             <FormControl
               fullWidth
               error={Boolean(touched.email && errors.email)}

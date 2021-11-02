@@ -5,7 +5,6 @@ import { Grid } from '@material-ui/core';
 
 // project imports
 import InvestedAmount from './investedAmount';
-import PopularCard from './PopularCard';
 import CurrentAmount from './currentAmount';
 import TotalIncomeDarkCard from './addAmount';
 import TotalIncomeLightCard from './withdrawAmount';
@@ -48,7 +47,7 @@ const UserDashboard = () => {
       </Grid>
       <Grid item xs={12}>
         <Grid container spacing={gridSpacing}>
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12} md={12}>
             <TotalGrowthBarChart isLoading={isLoading} />
           </Grid>
           {/* <Grid item xs={12} md={4}>

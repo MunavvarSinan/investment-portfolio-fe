@@ -5,21 +5,17 @@ import { useHistory } from 'react-router-dom';
 // material-ui
 import { makeStyles, useTheme } from '@material-ui/styles';
 import {
-  Avatar,
-  Card,
+  // Avatar,
   CardContent,
   Chip,
   ClickAwayListener,
   Divider,
   Grid,
-  InputAdornment,
   List,
   ListItemIcon,
   ListItemText,
-  OutlinedInput,
   Paper,
   Popper,
-  Switch,
   Typography,
 } from '@material-ui/core';
 import ListItemButton from '@mui/material/ListItemButton';
@@ -27,15 +23,15 @@ import ListItemButton from '@mui/material/ListItemButton';
 // third-party
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import axios from 'axios';
-
+// import Avatar, { ConfigProvider } from 'react-avatar';
+import UserAvatar from 'react-user-avatar';
 // project imports
 import MainCard from '../../../../ui-component/cards/MainCard';
 import Transitions from '../../../../ui-component/extended/Transitions';
 import { USER_LOGOUT, ADMIN_LOGOUT } from './../../../../store/actions';
 
 // assets
-import { IconLogout, IconSearch, IconSettings } from '@tabler/icons';
-import User1 from './../../../../assets/images/users/user-round.svg';
+import { IconLogout, IconUser } from '@tabler/icons';
 
 // style const
 const useStyles = makeStyles((theme) => ({
@@ -59,15 +55,12 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     // borderRadius: '27px',
     transition: 'all .2s ease-in-out',
-    borderColor: theme.palette.primary.light,
-    backgroundColor: theme.palette.primary.light,
+    borderColor: '#fff',
+    backgroundColor: '#fff',
+    color: '#fff',
     '&[aria-controls="menu-list-grow"], &:hover': {
-      borderColor: theme.palette.primary.main,
-      background: theme.palette.primary.main + '!important',
       color: theme.palette.primary.light,
-      '& svg': {
-        stroke: theme.palette.primary.light,
-      },
+      '& svg': {},
     },
   },
   profileLabel: {
@@ -117,27 +110,22 @@ const useStyles = makeStyles((theme) => ({
 //-----------------------|| PROFILE MENU ||-----------------------//
 
 const ProfileSection = () => {
-  // const account = useSelector((state) => state.account);
   const classes = useStyles();
   const theme = useTheme();
   const customization = useSelector((state) => state.customization);
   const account = useSelector((state) => state.account);
   const history = useHistory();
-  // const { admin } = account;
 
   const dispatcher = useDispatch();
-
-  const [sdm, setSdm] = React.useState(true);
-  const [value, setValue] = React.useState('');
-  const [notification, setNotification] = React.useState(false);
   const [selectedIndex, setSelectedIndex] = React.useState(1);
 
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
+
   const handleLogout = () => {
     console.log(account.isUserLoggedIn);
     console.log(account.isAdminLoggedIn);
-   
+
     if (account.isAdminLoggedIn == true) {
       axios
         .post(
@@ -146,8 +134,6 @@ const ProfileSection = () => {
           { headers: { Authorization: `${account.token}` } }
         )
         .then(function (response) {
-          // Force the LOGOUT
-          //if (response.data.success) {
           dispatcher({
             type: ADMIN_LOGOUT,
             payload: {
@@ -155,9 +141,6 @@ const ProfileSection = () => {
               isAdminLoggedIn: false,
             },
           });
-          //} else {
-          //    console.log('response - ', response.data.msg);
-          //}
         })
         .catch(function (error) {
           console.log('error - ', error);
@@ -171,8 +154,6 @@ const ProfileSection = () => {
           { headers: { Authorization: `${account.token}` } }
         )
         .then(function (response) {
-          // Force the LOGOUT
-          //if (response.data.success) {
           dispatcher({
             type: USER_LOGOUT,
             payload: {
@@ -180,17 +161,13 @@ const ProfileSection = () => {
               isUserLoggedIn: false,
             },
           });
-          //} else {
-          //    console.log('response - ', response.data.msg);
-          //}
         })
         .catch(function (error) {
           console.log('error - ', error);
         });
     }
   };
-   
-  
+
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
@@ -209,28 +186,27 @@ const ProfileSection = () => {
 
     prevOpen.current = open;
   }, [open]);
+
   return (
     <React.Fragment>
       <Chip
         classes={{ label: classes.profileLabel }}
         className={classes.profileChip}
         icon={
-          <Avatar
-            src={User1}
-            className={classes.headerAvatar}
+          <UserAvatar
+            size="48"
             ref={anchorRef}
             aria-controls={open ? 'menu-list-grow' : undefined}
             aria-haspopup="true"
-            color="inherit"
+            name={
+              account.isAdminLoggedIn
+                ? account.admin.username
+                : account.isUserLoggedIn
+                ? account.user.username
+                : 'Login'
+            }
           />
         }
-        // label={
-        //   <IconSettings
-        //     stroke={1.5}
-        //     size="1.5rem"
-        //     color={theme.palette.primary.main}
-        //   />
-        // }
         variant="outlined"
         ref={anchorRef}
         aria-controls={open ? 'menu-list-grow' : undefined}
@@ -281,77 +257,38 @@ const ProfileSection = () => {
                             : account.isUserLoggedIn
                             ? account.user.username
                             : null}
-                          {/* {account.isUserLoggedIn 
-                            ? account.user.username
-                            : null} */}
                         </Typography>
                       </Grid>
-                      <Grid item>
-                        {/* <Typography variant="subtitle2">
-                          Project Admin
-                        </Typography> */}
-                      </Grid>
+                      <Grid item></Grid>
                     </Grid>
 
                     <Divider />
                     <PerfectScrollbar className={classes.ScrollHeight}>
                       {/* <UpgradePlanCard /> */}
                       <Divider />
-                      {/* <Card className={classes.card}> */}
-                      {/* <CardContent>
-                          <Grid container spacing={3} direction="column">
-                            <Grid item>
-                              <Grid
-                                item
-                                container
-                                alignItems="center"
-                                justifyContent="space-between"
-                              >
-                                <Grid item>
-                                  <Typography variant="subtitle1">
-                                    Start DND Mode
-                                  </Typography>
-                                </Grid>
-                                <Grid item>
-                                  <Switch
-                                    color="primary"
-                                    checked={sdm}
-                                    onChange={(e) => setSdm(e.target.checked)}
-                                    name="sdm"
-                                    size="small"
-                                  />
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                            <Grid item>
-                              <Grid
-                                item
-                                container
-                                alignItems="center"
-                                justifyContent="space-between"
-                              >
-                                <Grid item>
-                                  <Typography variant="subtitle1">
-                                    Allow Notifications
-                                  </Typography>
-                                </Grid>
-                                <Grid item>
-                                  <Switch
-                                    checked={notification}
-                                    onChange={(e) =>
-                                      setNotification(e.target.checked)
-                                    }
-                                    name="sdm"
-                                    size="small"
-                                  />
-                                </Grid>
-                              </Grid>
-                            </Grid>
-                          </Grid>
-                        </CardContent> */}
-                      {/* </Card> */}
-                      {/* <Divider /> */}
+
                       <List component="nav" className={classes.navContainer}>
+                      <ListItemButton
+                          // LinkComponent
+                          className={classes.listItem}
+                          sx={{
+                            borderRadius: customization.borderRadius + 'px',
+                          }}
+                          selected={selectedIndex === 4}
+                          onClick={() => {
+                            history.push('/users/profile');
+                            setOpen(false);
+                          }}
+                        >
+                          <ListItemIcon>
+                            <IconUser stroke={1.5} size="1.3rem" />
+                          </ListItemIcon>
+                          <ListItemText
+                            primary={
+                              <Typography variant="body2">Profile</Typography>
+                            }
+                          />
+                        </ListItemButton>
                         <ListItemButton
                           className={classes.listItem}
                           sx={{
@@ -369,6 +306,7 @@ const ProfileSection = () => {
                             }
                           />
                         </ListItemButton>
+                       
                       </List>
                     </PerfectScrollbar>
                   </CardContent>

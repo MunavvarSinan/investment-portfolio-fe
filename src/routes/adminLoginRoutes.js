@@ -2,13 +2,10 @@ import React, { lazy } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom';
 
 import Loadable from '../ui-component/Loadable';
-import AdminAuth from '../utils/route-guard/AdminAuth';
 import AdminGuard from '../utils/route-guard/AdminGuard';
 import MinimalLayout from './../layout/MinimalLayout';
 import NavMotion from './../layout/NavMotion';
-const AdminDashborad = Loadable(
-  lazy(() => import('../views/dashboard/admin-dashboard'))
-);
+
 const adminLogin = Loadable(
   lazy(() => import('../views/pages/admin/login'))
 );

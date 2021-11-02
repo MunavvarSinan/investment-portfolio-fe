@@ -1,23 +1,24 @@
 import React from 'react';
 import { Link as RouterLink } from 'react-router-dom';
-
-// material-ui
 import { useTheme } from '@material-ui/core';
-import { Divider, Grid, Typography, useMediaQuery } from '@material-ui/core';
-import Stack from '@mui/material/Stack';
 
-// project imports
-import AuthWrapper1 from './../../AuthWrapper1';
-import Logo from './../../../../ui-component/Logo';
-import AuthCardWrapper from './../../AuthCardWrapper';
-import RestLogin from './RestLogin';
-// assets
+import {
+  Grid,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from '@material-ui/core';
 
-//================================|| LOGIN MAIN ||================================//
+import AuthWrapper1 from '../../AuthWrapper1';
+import AuthCardWrapper from '../../AuthCardWrapper';
+import Logo from '../../../../ui-component/Logo';
 
-const Login = () => {
+
+
+const ResetPswdSent = () => {
   const theme = useTheme();
   const matchDownSM = useMediaQuery(theme.breakpoints.down('sm'));
+
   return (
     <AuthWrapper1>
       <Grid
@@ -60,22 +61,25 @@ const Login = () => {
                           spacing={1}
                         >
                           <Typography
-                            variant="caption"
+                            variant="heading"
                             fontSize="16px"
                             textAlign={matchDownSM ? 'center' : ''}
                           >
-                            Enter your credentials to continue
+                            Recovery Email has sent to your mail
                           </Typography>
                         </Stack>
                       </Grid>
                     </Grid>
                   </Grid>
-
                   <Grid item xs={12}>
-                    <RestLogin />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider />
+                    <Typography
+                      component={RouterLink}
+                      to="/users/login"
+                      variant="subtitle1"
+                      fontSize="12px"
+                      textAlign={matchDownSM ? 'center' : ''}
+                      sx={{ textDecoration: 'none' }}
+                    >Go to login page</Typography>
                   </Grid>
                 </Grid>
               </AuthCardWrapper>
@@ -87,4 +91,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ResetPswdSent;

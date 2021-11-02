@@ -1,24 +1,7 @@
 import React from 'react';
 import emailjs from 'emailjs-com';
-import logo from '../../assets/images/logo.svg'
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-
-const Alert = React.forwardRef(function Alert(props, ref) {
-  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
-});
 
 export default function Footer() {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-
-    setOpen(false);
-  };
-
   function sendEmail(e) {
     e.preventDefault();
     emailjs
@@ -32,7 +15,7 @@ export default function Footer() {
         console.log(res);
       })
       .catch((err) => console.log(err));
-  e.target.reset();
+    e.target.reset();
   }
   return (
     <footer className="footer pt-120">
@@ -42,7 +25,7 @@ export default function Footer() {
             <div className="footer-widget">
               <div className="logo">
                 <a href="#home">
-                  <img src="assets/images/logo.png" alt="logo" width="100%"/>
+                  <img src="assets/images/logo.png" alt="logo" width="100%" />
                 </a>
               </div>
               <p className="desc">
@@ -113,13 +96,11 @@ export default function Footer() {
       </div>
       <div className="footer-copyright text-center">
         <p className="text">
-        <a href="https://smartfunds.co.in" rel="nofollow">
-            SMART FUNDS
+        &copy; 2021  &nbsp;
+          <a href="https://smartfunds.co.in" rel="nofollow">
+            SMART FUNDS .
           </a>
-              © 2021
-       
-          All Rights Reserved.
-          
+          &nbsp;&nbsp; Inc, All Rights Reserved.
         </p>
       </div>
     </footer>

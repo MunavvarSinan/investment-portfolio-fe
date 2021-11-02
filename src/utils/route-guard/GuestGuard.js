@@ -5,7 +5,8 @@ import { Redirect } from 'react-router-dom';
 
 const GuestGuard = ({ children }) => {
   const account = useSelector((state) => state.account);
-  const { isUserLoggedIn } = account;
+  const { isUserLoggedIn , user} = account;
+  // console.log(user.id);
 
   if (isUserLoggedIn == true) {
     return <Redirect to="/users/dashboard" />;
